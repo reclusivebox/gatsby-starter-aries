@@ -34,7 +34,14 @@ module.exports = {
     config.module.rules.push({
       test: /\.s[ac]ss$/,
       use: [
-        'style-loader', 'css-loader?modules&importLoaders', 'sass-loader'
+        'style-loader', {
+          loader: 'css-loader',
+          options: {
+            modules: {
+              auto: /.*\.module\..+$/i
+            }
+          }
+        }, 'sass-loader'
       ]
     })
     return config
