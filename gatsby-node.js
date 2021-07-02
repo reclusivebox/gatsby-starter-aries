@@ -1,7 +1,16 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.com/docs/node-apis/
- */
+const fs = require('fs');
+const path = require('path');
+const rawTsconfig = fs.readFileSync(path.resolve('tsconfig.json'), 'utf8');
+const tsconfigNoComments = rawTsconfig.replace(/(\/\/.*$)|(\/\*.*\*\/)/gm, '');
+const tsconfig = JSON.parse(tsconfigNoComments);
+const baseUrl = path.resolve(tsconfig.compilerOptions.baseUrl);
 
-// You can delete this file if you're not using it
+function onCreateWebpackConfig({ actions }) {
+  actions.setWebpackConfig({
+    resolve: {
+      modules: ['node_modules', baseUrl],
+    },
+  });
+}
+
+module.exports = { onCreateWebpackConfig };
