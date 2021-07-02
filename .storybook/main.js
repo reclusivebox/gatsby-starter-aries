@@ -1,7 +1,19 @@
+const fs = require('fs');
+const path = require('path');
+const rawTsconfig = fs.readFileSync(path.resolve('tsconfig.json'), 'utf8');
+const tsconfigNoComments = rawTsconfig.replace(/(\/\/.*$)|(\/\*.*\*\/)/gm, '');
+const tsconfig = JSON.parse(tsconfigNoComments);
+const baseUrl = path.resolve(tsconfig.compilerOptions.baseUrl)
+
 module.exports = {
-  stories: ["../src/stories/*"],
+  core: {
+    builder: 'webpack5',
+  },
+  stories: ["../src/stories/*.tsx", "../src/stories/*.jsx"],
   addons: ["@storybook/addon-actions", "@storybook/addon-links"],
   webpackFinal: async config => {
+    // include tsconfig baseURL
+    config.resolve.modules.push(baseUrl);
     // Transpile Gatsby module because Gatsby includes un-transpiled ES6 code.
     config.module.rules[0].exclude = [/node_modules\/(?!(gatsby)\/)/]
     // use installed babel-loader which is v8.0-beta (which is meant to work with @babel/core@7)
@@ -10,6 +22,7 @@ module.exports = {
     config.module.rules[0].use[0].options.presets = [
       require.resolve("@babel/preset-react"),
       require.resolve("@babel/preset-env"),
+      require.resolve("@babel/preset-typescript"),
     ]
     config.module.rules[0].use[0].options.plugins = [
       // use @babel/plugin-proposal-class-properties for class arrow functions
@@ -21,16 +34,27 @@ module.exports = {
     config.resolve.mainFields = ["browser", "module", "main"]
     config.module.rules.push({
       test: /\.(ts|tsx)$/,
-      loader: require.resolve("babel-loader"),
-      options: {
-        presets: [["react-app", { flow: false, typescript: true }]],
-        plugins: [
-          require.resolve("@babel/plugin-proposal-class-properties"),
-          // use babel-plugin-remove-graphql-queries to remove static queries from components when rendering in storybook
-          require.resolve("babel-plugin-remove-graphql-queries"),
-        ],
-      },
+      use: [
+        {
+          loader: require.resolve("babel-loader"),
+          options: {
+            presets: [["react-app", { flow: false, typescript: true }]],
+            plugins: [
+              require.resolve("@babel/plugin-proposal-class-properties"),
+              // use babel-plugin-remove-graphql-queries to remove static queries from components when rendering in storybook
+              require.resolve("babel-plugin-remove-graphql-queries"),
+            ],
+          },
+        },
+        // {
+        //   loader: require.resolve('ts-loader'),
+        // },
+      ],
     })
+    // config.module.rules.push({
+    //   test: /\.(ts|tsx)$/,
+    //   loader: require.resolve("ts-loader"),
+    // })
     config.module.rules.push({
       test: /\.s[ac]ss$/,
       use: [
