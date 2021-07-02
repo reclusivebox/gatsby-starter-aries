@@ -32,7 +32,16 @@ module.exports = {
       },
     },
     'gatsby-plugin-typescript',
-    'gatsby-plugin-sass',
+    {
+      resolve: 'gatsby-plugin-sass',
+      options: {
+        cssLoaderOptions: {
+          modules: {
+            auto: /.*\.module\..+$/i,
+          },
+        },
+      },
+    },
     'gatsby-plugin-sitemap',
     'gatsby-plugin-robots-txt',
     // this (optional) plugin enables Progressive Web App + Offline functionality

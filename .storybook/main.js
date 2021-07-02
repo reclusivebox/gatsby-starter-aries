@@ -6,9 +6,6 @@ const tsconfig = JSON.parse(tsconfigNoComments);
 const baseUrl = path.resolve(tsconfig.compilerOptions.baseUrl)
 
 module.exports = {
-  core: {
-    builder: 'webpack5',
-  },
   stories: ["../src/stories/*.tsx", "../src/stories/*.jsx"],
   addons: ["@storybook/addon-actions", "@storybook/addon-links"],
   webpackFinal: async config => {
@@ -65,7 +62,7 @@ module.exports = {
               auto: /.*\.module\..+$/i
             }
           }
-        }, 'sass-loader'
+        }, 'fast-sass-loader'
       ]
     })
     return config
