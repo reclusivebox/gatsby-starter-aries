@@ -48,6 +48,6 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "storybook": "cd .StoryBook && npm run storybook",
     "build-storybook": "cd .StoryBook && npm run build-storybook",
-    "setup": "npm i && cd .StoryBook && npm i"
+    "postinstall": "cd .StoryBook && npm i"
   }
 }
