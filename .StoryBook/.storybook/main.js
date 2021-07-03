@@ -1,12 +1,12 @@
 const fs = require('fs');
 const path = require('path');
-const rawTsconfig = fs.readFileSync(path.resolve('tsconfig.json'), 'utf8');
+const rawTsconfig = fs.readFileSync(path.resolve('../tsconfig.json'), 'utf8');
 const tsconfigNoComments = rawTsconfig.replace(/(\/\/.*$)|(\/\*.*\*\/)/gm, '');
 const tsconfig = JSON.parse(tsconfigNoComments);
-const baseUrl = path.resolve(tsconfig.compilerOptions.baseUrl)
+const baseUrl = path.resolve('..', tsconfig.compilerOptions.baseUrl);
 
 module.exports = {
-  stories: ["../src/stories/*.tsx", "../src/stories/*.jsx"],
+  stories: ["../../src/stories/*.tsx", "../../src/stories/*.jsx"],
   addons: ["@storybook/addon-actions", "@storybook/addon-links"],
   webpackFinal: async config => {
     // include tsconfig baseURL

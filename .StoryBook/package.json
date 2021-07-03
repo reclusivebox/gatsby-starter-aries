@@ -1,0 +1,20 @@
+{
+  "name": "storybook-isolated-testing",
+  "version": "1.0.0",
+  "description": "An isolated storybook testing suit",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@storybook/addon-actions": "^6.3.2",
+    "@storybook/addon-essentials": "^6.3.2",
+    "@storybook/addon-links": "^6.3.2",
+    "@storybook/cli": "^6.3.2",
+    "@storybook/preset-scss": "^1.0.3",
+    "@storybook/react": "^6.3.2",
+    "fast-sass-loader": "^2.0.0"
+  },
+  "scripts": {
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  }
+}
