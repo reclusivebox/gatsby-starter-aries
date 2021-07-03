@@ -22,7 +22,7 @@
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-react": "^7.23.2",
     "fast-sass-loader": "^2.0.0",
-    "gatsby": "^3.4.1",
+    "gatsby": "^3.8.1",
     "gatsby-plugin-image": "^1.4.0",
     "gatsby-plugin-manifest": "^3.4.0",
     "gatsby-plugin-offline": "^4.4.0",
