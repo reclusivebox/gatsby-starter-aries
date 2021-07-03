@@ -12,4 +12,6 @@
 
 - `robots.txt` generation.
 
-    Due to some webpack mystery, right after you run `gatsby new` using this template, you also need to run `yarn setup` or `npm run setup` for the template to work properly.
+## Caveats
+
+- When using CSS/SASS modules you can't import them with default imports, you need to do something like `import * as styles from 'yourFile.module.css'`.

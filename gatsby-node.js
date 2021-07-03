@@ -5,7 +5,7 @@ const tsconfigNoComments = rawTsconfig.replace(/(\/\/.*$)|(\/\*.*\*\/)/gm, '');
 const tsconfig = JSON.parse(tsconfigNoComments);
 const baseUrl = path.resolve(tsconfig.compilerOptions.baseUrl);
 
-function onCreateWebpackConfig({ actions }) {
+function onCreateWebpackConfig({actions}) {
   actions.setWebpackConfig({
     resolve: {
       modules: ['node_modules', baseUrl],
@@ -13,4 +13,4 @@ function onCreateWebpackConfig({ actions }) {
   });
 }
 
-module.exports = { onCreateWebpackConfig };
+module.exports = {onCreateWebpackConfig};
